@@ -13,12 +13,13 @@ const storage = multer.diskStorage({
 const upload = multer({storage: storage})
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get('/uploads', function(req, res, next) {
+  let { link = null }  = req.query;
+  res.render('index', { link });
 });
 
 router.post('/', upload.any(), function(req, res, next) {
-  res.redirect('/')
+  res.redirect('/uploads?link=' + req.files[0].originalname)
 });
 
 module.exports = router;

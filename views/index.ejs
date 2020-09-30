@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <form method="POST" action="/" enctype="multipart/form-data">
-      <input name="file" type="file" required="true">
-      <input type="submit">
-    </form>
-  </body>
+
+<head>
+  <title>MAYRAM</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <h3>Загрузите любые файлы
+  <p>Файлы будет доступны по домену mayram.club/название-файла</p>
+</h3>
+  <% if(link) { %>
+  <hr>
+  <h3>
+  Файл доступен поссылке <a href="http://mayram.club/<%= link %>">http://mayram.club/<%= link %></a>, загрузка файла с
+  наким же названием сотрет предыдущий файл с сервера
+  </h3>
+  <hr>
+  <% } %>
+  <form method="POST" action="/" enctype="multipart/form-data">
+    <input name="file" type="file" required="true">
+    <input type="submit">
+  </form>
+</body>
+
 </html>
