@@ -8,13 +8,13 @@
 
 <body>
   <h3>Загрузите любые файлы
-  <p>Файлы будет доступны по домену mayram.club/название-файла</p>
-</h3>
+    <p>Файлы будет доступны по домену mayram.club/название-файла</p>
+  </h3>
   <% if(link) { %>
   <hr>
   <h3>
-  Файл доступен поссылке <a href="http://mayram.club/<%= link %>">http://mayram.club/<%= link %></a>, загрузка файла с
-  наким же названием сотрет предыдущий файл с сервера
+    Файл доступен поссылке <a href="http://mayram.club/<%= link %>">http://mayram.club/<%= link %></a>, загрузка файла с
+    наким же названием сотрет предыдущий файл с сервера
   </h3>
   <hr>
   <% } %>
@@ -22,6 +22,15 @@
     <input name="file" type="file" required="true">
     <input type="submit">
   </form>
+
+  <h3>Список файлов и ссылки на них</h3>
+  <ul>
+    <% for(let i = 0; i < files.length; i++) { %>
+      <li>
+        <%= files[i] %> <a href="/<%= files[i] %>">сслыка на файл</a>
+      </li>
+    <% } %>
+  </ul>
 </body>
 
 </html>
