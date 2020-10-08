@@ -42,11 +42,9 @@ router.get('/files', function (req, res, next) {
   let fileName = req.query.fileName;
   const filePath = path.join(__dirname, `../public/${fileName}`);
   var stat = fs.statSync(filePath);
-
-  res.writeHead(200, {
-    'Content-Type': 'application/pdf',
-    'Content-Disposition': 'inline'
-  });
+  
+  res.set("Content-Type", "application/pdf");
+  res.set("Content-Disposition", "inline;filename=somefile.ext");
 
   var readStream = fs.createReadStream(filePath);
   // We replaced all the event handlers with a simple call to readStream.pipe()
