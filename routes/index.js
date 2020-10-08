@@ -47,7 +47,7 @@ router.get('/files', function (req, res, next) {
     'Content-Disposition': 'inline'
   });
 
-  res.send(filePath, function (err) {
+  res.sendFile(filePath, function (err) {
     if (err) {
       console.log(err);
       res.redirect('http://mayram.kg')
