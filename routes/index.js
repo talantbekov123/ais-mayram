@@ -41,23 +41,16 @@ router.get('/delete', function (req, res, next) {
 router.get('/files', function (req, res, next) {
   let fileName = req.query.fileName;
   const filePath = path.join(__dirname, `../public/${fileName}`);
+  var stat = fs.statSync(filePath);
 
-  res.set({
+  res.writeHead(200, {
     'Content-Type': 'application/pdf',
     'Content-Disposition': 'inline'
   });
 
-  res.sendFile(filePath, function (err) {
-    if (err) {
-      console.log(err);
-      res.redirect('http://mayram.kg')
-      // Handle error, but keep in mind the response may be partially-sent
-      // so check res.headersSent
-    } else {
-      // decrement a download credit, etc.
-    }
-  })
-
+  var readStream = fs.createReadStream(filePath);
+  // We replaced all the event handlers with a simple call to readStream.pipe()
+  readStream.pipe(res);
 });
 
 module.exports = router;
