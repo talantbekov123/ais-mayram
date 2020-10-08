@@ -33,9 +33,21 @@ router.post('/', upload.any(), function (req, res, next) {
 
 router.get('/delete', function (req, res, next) {
   let fileName = req.query.fileName;
-  const directoryPath = path.join(__dirname, `../public/${fileName}`);
-  fs.unlinkSync(directoryPath);
+  const filePath = path.join(__dirname, `../public/${fileName}`);
+  fs.unlinkSync(filePath);
   res.redirect('/uploads');
+});
+
+router.get('/files', function (req, res, next) {
+  let fileName = req.query.fileName;
+  const filePath = path.join(__dirname, `../public/${fileName}`);
+
+  res.set({
+    'Content-Type': 'application/pdf',
+    'Content-Disposition': `inline; filename="filename.pdf"`
+  });
+
+  res.sendFile(filePath)
 });
 
 module.exports = router;
