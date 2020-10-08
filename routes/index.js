@@ -44,10 +44,20 @@ router.get('/files', function (req, res, next) {
 
   res.set({
     'Content-Type': 'application/pdf',
-    'Content-Disposition': `inline`
+    'Content-Disposition': 'inline'
   });
 
-  res.sendFile(filePath)
+  res.send(filePath, function (err) {
+    if (err) {
+      console.log(err);
+      res.redirect('http://mayram.kg')
+      // Handle error, but keep in mind the response may be partially-sent
+      // so check res.headersSent
+    } else {
+      // decrement a download credit, etc.
+    }
+  })
+
 });
 
 module.exports = router;
