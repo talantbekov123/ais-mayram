@@ -44,7 +44,7 @@ router.get('/files', function (req, res, next) {
 
   res.set({
     'Content-Type': 'application/pdf',
-    'Content-Disposition': `inline; filename="${fileName}.pdf"`
+    'Content-Disposition': `inline; filename=${fileName}.pdf`
   });
 
   res.sendFile(filePath)
