@@ -31,4 +31,11 @@ router.post('/', upload.any(), function (req, res, next) {
   res.redirect('/uploads?link=' + req.files[0].originalname)
 });
 
+router.get('/delete', function (req, res, next) {
+  let fileName = req.query.fileName;
+  const directoryPath = path.join(__dirname, `../public/${fileName}`);
+  fs.unlinkSync(directoryPath);
+  res.redirect('/uploads');
+});
+
 module.exports = router;

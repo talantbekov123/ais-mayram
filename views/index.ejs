@@ -27,9 +27,14 @@
   <ul>
     <% for(let i = 0; i < files.length; i++) { %>
       <li>
-        <%= files[i] %> <a href="/<%= files[i] %>">сслыка на файл</a>
+        <%= files[i] %> - <a href="/<%= files[i] %>">сслыка на файл</a>
+        <br>
+        <a href="/delete?fileName=<%= files[i] %>">Удалить файл</a>
+        
       </li>
-    <% } %>
+      <br>
+
+      <% } %>
   </ul>
 </body>
 
