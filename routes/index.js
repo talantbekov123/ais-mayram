@@ -40,6 +40,11 @@ router.get('/delete', function (req, res, next) {
   res.redirect('/uploads');
 });
 
+router.get('/web', function (req, res, next) {
+  let fileName = req.query.fileName;
+  res.redirect(`/files?fileName=${fileName}`);
+});
+
 router.get('/files', async function (req, res, next) {
   let fileName = req.query.fileName;
   let hash = randomize('Aa0', 4);
