@@ -10,12 +10,12 @@
     </div>
     <script src="./pdf.js"></script>
     <script>
-        renderPdfByUrl('./<%= fileName %>.pdf')
-        function renderPdfByUrl(url) {
+        renderPdf()
+        function renderPdf() {
             var currPage = 1;
             var numPages = 0;
             var thePDF = null;
-            var loadingTask = pdfjsLib.getDocument(url);
+            var loadingTask = pdfjsLib.getDocument('./<%= fileName %>');
             //This is where you start
             loadingTask.promise.then(function (pdf) {
                 //Set PDFJS global object (so we can easily access in our page functions
