@@ -6,6 +6,8 @@
 </head>
 
 <body>
+    <div style = "text-align:center;" id="elem">
+    </div>
     <script src="./pdf.js"></script>
     <script>
         renderPdfByUrl('./<%= fileName %>.pdf')
@@ -31,7 +33,10 @@
                 //This gives us the page's dimensions at full scale
                 var viewport = page.getViewport({ scale: 1, });
                 //We'll create a canvas for each page to draw it on
+                var elem = document.getElementById('elem');
                 var canvas = document.createElement("canvas");
+                canvas.style.margin = 'auto';
+                
                 // canvas.style.display = "block";
                 var context = canvas.getContext('2d');
                 canvas.height = viewport.height;
@@ -44,7 +49,7 @@
                 });
 
                 //Add it to the web page
-                document.body.appendChild(canvas);
+                elem.appendChild(canvas);
 
                 //Move to next page
                 currPage++;
