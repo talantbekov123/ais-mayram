@@ -16,7 +16,7 @@ const upload = multer({ storage: storage })
 /* GET home page. */
 router.get('/uploads', function (req, res, next) {
   const directoryPath = path.join(__dirname, '../public');
-  fs.readdir(directoryPath, function (err, files) {
+  fs.readdir(directoryPath, function (err, files = []) {
     //handling error
     if (err) {
       console.log('Unable to scan directory: ' + err);
@@ -44,7 +44,7 @@ router.get('/files', function (req, res, next) {
   var stat = fs.statSync(filePath);
   
   res.set("Content-Type", "application/pdf");
-  res.set("Content-Disposition", `inline;filename=${fileName}`);
+  res.set("Content-Disposition", `inline;filename=${fileName}xx`);
 
   var readStream = fs.createReadStream(filePath);
   // We replaced all the event handlers with a simple call to readStream.pipe()
