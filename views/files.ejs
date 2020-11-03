@@ -6,57 +6,41 @@
 </head>
 
 <body>
-    <div style = "text-align:center;" id="elem">
+    <div style="text-align:center;" id="elem">
     </div>
     <script src="./pdf.js"></script>
+
     <script>
-        renderPdf()
-        function renderPdf() {
-            var currPage = 1;
-            var numPages = 0;
-            var thePDF = null;
-            var loadingTask = pdfjsLib.getDocument('./<%= fileName %>');
-            //This is where you start
+        //   var loadingTask = pdfjsLib.getDocument('./<%= fileName %>');
+        var loadingTask = pdfjsLib.getDocument('./<%= fileName %>');
+
+        renderPDF()
+
+        function renderPDF() {
             loadingTask.promise.then(function (pdf) {
-                //Set PDFJS global object (so we can easily access in our page functions
-                thePDF = pdf;
-
-                //How many pages it has
-                numPages = pdf.numPages;
-                console.log(numPages);
-                //Start with first page
-                pdf.getPage(1).then(handlePages);
-            });
-
-
-            function handlePages(page) {
-                //This gives us the page's dimensions at full scale
-                var viewport = page.getViewport({ scale: 1, });
-                //We'll create a canvas for each page to draw it on
-                var elem = document.getElementById('elem');
-                var canvas = document.createElement("canvas");
-                canvas.style.margin = 'auto';
-                
-                // canvas.style.display = "block";
-                var context = canvas.getContext('2d');
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
-
-                //Draw it on the canvas
-                page.render({
-                    canvasContext: context,
-                    viewport: viewport
-                });
-
-                //Add it to the web page
-                elem.appendChild(canvas);
-
-                //Move to next page
-                currPage++;
-                if (thePDF !== null && currPage <= numPages) {
-                    thePDF.getPage(currPage).then(handlePages);
+                for (let i = 1; i <= pdf.numPages; i += 1) {
+                    console.log('xxx')
+                    const canvas = document.createElement('canvas');
+                    /* This indentify the canvas as the location of the page */
+                    canvas.id = i;
+                    document.getElementById('elem').appendChild(canvas);
+                    pdf.getPage(i).then((page) => {
+                        renderPage(page, canvas);
+                    })
                 }
-            }
+            });
+        }
+
+        function renderPage(page, canvas) {
+            const viewport = page.getViewport({ scale: 1, });
+            const canvasContext = canvas.getContext('2d');
+            const renderContext = {
+                canvasContext,
+                viewport
+            };
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+            page.render(renderContext);
         }
     </script>
 </body>
