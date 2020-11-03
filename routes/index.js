@@ -42,7 +42,7 @@ router.get('/delete', function (req, res, next) {
 
 router.get('/web', function (req, res, next) {
   let fileName = req.query.fileName;
-  res.redirect(`/files?fileName=${fileName}`);
+  res.render('web', { fileName });
 });
 
 router.get('/files', async function (req, res, next) {
