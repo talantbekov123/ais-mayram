@@ -3,6 +3,7 @@ var router = express.Router();
 const fs = require('fs');
 const multer = require('multer');
 var path = require('path');
+var randomize = require('randomatic');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'public/')
@@ -40,11 +41,11 @@ router.get('/delete', function (req, res, next) {
 
 router.get('/files', function (req, res, next) {
   let fileName = req.query.fileName;
+  let hash = randomize('Aa0', 4);
   const filePath = path.join(__dirname, `../public/${fileName}`);
-  var stat = fs.statSync(filePath);
   
   res.set("Content-Type", "application/pdf");
-  res.set("Content-Disposition", `inline;filename=${fileName}xx`);
+  res.set("Content-Disposition", `inline;filename=${fileName.substring(0, fileName.length - 4)}hash.pdf`);
 
   var readStream = fs.createReadStream(filePath);
   // We replaced all the event handlers with a simple call to readStream.pipe()
