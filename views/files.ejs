@@ -15,7 +15,7 @@
             var currPage = 1;
             var numPages = 0;
             var thePDF = null;
-            var loadingTask = pdfjsLib.getDocument('./CB.pdf');
+            var loadingTask = pdfjsLib.getDocument(url);
             //This is where you start
             loadingTask.promise.then(function (pdf) {
                 //Set PDFJS global object (so we can easily access in our page functions
