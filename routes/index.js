@@ -40,12 +40,7 @@ router.get('/delete', function (req, res, next) {
   res.redirect('/uploads');
 });
 
-router.get('/web', function (req, res, next) {
-  let fileName = req.query.fileName;
-  res.render('web', { fileName });
-});
-
-router.get('/files', async function (req, res, next) {
+router.get('/data', function (req, res, next) {
   let fileName = req.query.fileName;
   let hash = randomize('Aa0', 4);
   const filePath = path.join(__dirname, `../public/${fileName}`);
@@ -55,10 +50,11 @@ router.get('/files', async function (req, res, next) {
     res.contentType("application/pdf");
     res.send(data);
   });
-  
-  // var readStream = fs.createReadStream(filePath);
-  // We replaced all the event handlers with a simple call to readStream.pipe()
-  // readStream.pipe(res);
+});
+
+router.get('/files', async function (req, res, next) {
+  let fileName = req.query.fileName;
+  res.render('files', { fileName });
 });
 
 module.exports = router;

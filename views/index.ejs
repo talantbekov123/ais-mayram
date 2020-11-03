@@ -13,7 +13,7 @@
   <% if(link) { %>
   <hr>
   <h3>
-    Файл доступен поссылке <a href="http://mayram.club/web?fileName=<%= link %>">http://mayram.club/<%= link %></a>, загрузка файла с
+    Файл доступен поссылке <a href="http://mayram.club/files?fileName=<%= link %>">http://mayram.club/<%= link %></a>, загрузка файла с
     наким же названием сотрет предыдущий файл с сервера
   </h3>
   <hr>
@@ -27,7 +27,7 @@
   <ul>
     <% for(let i = 0; i < files.length; i++) { %>
       <li>
-        <%= files[i] %> - <a href="/web?fileName=<%= files[i] %>">сслыка на файл</a>
+        <%= files[i] %> - <a href="/files?fileName=<%= files[i] %>">сслыка на файл</a>
         <br>
         <a href="/delete?fileName=<%= files[i] %>">Удалить файл</a>
         

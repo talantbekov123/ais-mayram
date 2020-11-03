@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MENU</title>
+</head>
+
+<body>
+    <script src="./pdf.js"></script>
+    <script>
+        renderPdfByUrl('./<%= fileName %>.pdf')
+        function renderPdfByUrl(url) {
+            var currPage = 1;
+            var numPages = 0;
+            var thePDF = null;
+            var loadingTask = pdfjsLib.getDocument('./CB.pdf');
+            //This is where you start
+            loadingTask.promise.then(function (pdf) {
+                //Set PDFJS global object (so we can easily access in our page functions
+                thePDF = pdf;
+
+                //How many pages it has
+                numPages = pdf.numPages;
+                console.log(numPages);
+                //Start with first page
+                pdf.getPage(1).then(handlePages);
+            });
+
+
+            function handlePages(page) {
+                //This gives us the page's dimensions at full scale
+                var viewport = page.getViewport({ scale: 1, });
+                //We'll create a canvas for each page to draw it on
+                var canvas = document.createElement("canvas");
+                // canvas.style.display = "block";
+                var context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                //Draw it on the canvas
+                page.render({
+                    canvasContext: context,
+                    viewport: viewport
+                });
+
+                //Add it to the web page
+                document.body.appendChild(canvas);
+
+                //Move to next page
+                currPage++;
+                if (thePDF !== null && currPage <= numPages) {
+                    thePDF.getPage(currPage).then(handlePages);
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
