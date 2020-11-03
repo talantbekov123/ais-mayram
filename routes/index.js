@@ -45,7 +45,7 @@ router.get('/files', function (req, res, next) {
   const filePath = path.join(__dirname, `../public/${fileName}`);
   
   res.set("Content-Type", "application/pdf");
-  res.set("Content-Disposition", `inline;filename=${fileName.substring(0, fileName.length - 4)}hash.pdf`);
+  res.set("Content-Disposition", `inline;filename=${fileName.substring(0, fileName.length - 4)}${hash}.pdf`);
 
   var readStream = fs.createReadStream(filePath);
   // We replaced all the event handlers with a simple call to readStream.pipe()
