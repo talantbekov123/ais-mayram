@@ -4,6 +4,7 @@ const fs = require('fs');
 const multer = require('multer');
 var path = require('path');
 var randomize = require('randomatic');
+const open = require('open');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'public/')
@@ -39,17 +40,20 @@ router.get('/delete', function (req, res, next) {
   res.redirect('/uploads');
 });
 
-router.get('/files', function (req, res, next) {
+router.get('/files', async function (req, res, next) {
   let fileName = req.query.fileName;
   let hash = randomize('Aa0', 4);
   const filePath = path.join(__dirname, `../public/${fileName}`);
+  fs.readFile(filePath , function (err, data){
+    res.set("Content-Type", "application/pdf");
+    res.set("Content-Disposition", `inline;filename=${fileName.substring(0, fileName.length - 4)}-${hash}.pdf`);
+    res.contentType("application/pdf");
+    res.send(data);
+  });
   
-  res.set("Content-Type", "application/pdf");
-  res.set("Content-Disposition", `inline;filename=${fileName.substring(0, fileName.length - 4)}-${hash}.pdf`);
-
-  var readStream = fs.createReadStream(filePath);
+  // var readStream = fs.createReadStream(filePath);
   // We replaced all the event handlers with a simple call to readStream.pipe()
-  readStream.pipe(res);
+  // readStream.pipe(res);
 });
 
 module.exports = router;
